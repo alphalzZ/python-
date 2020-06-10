@@ -1,3 +1,4 @@
+#!/bin/python3
 # encoding=utf8
 from collections.abc import Iterable, Iterator
 import requests

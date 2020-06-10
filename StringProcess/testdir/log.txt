@@ -1,0 +1,8 @@
+epoch:1 valmse:2.4 acc:99.2
+epoch:2 valmse:2.5 acc:99.3
+epoch:3 valmse:2.6 acc:99.4
+epoch:4 valmse:2.7 acc:99.9
+epoch:5 valmse:2.2 acc:99.0
+epoch:6 valmse:2.1 acc:99.8
+
+

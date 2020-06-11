@@ -15,10 +15,13 @@ class FoundIterable(Iterable):
             yield self.get_found(found)
 
     def get_found(self,found):
-         url = "https://api.doctorxiong.club/v1/fund?code=%s" % found
-         r = requests.get(url)
-         data = r.json()['data'][0]
-         return data['name'], data['expectGrowth'], data['lastThreeMonthsGrowth']
+         try:
+            url = "https://api.doctorxiong.club/v1/fund?code=%s" % found
+            r = requests.get(url)
+            data = r.json()['data'][0]
+            return data['name'], data['expectGrowth'], data['lastThreeMonthsGrowth']
+         except:
+            return "err"
 
 class ProcessFound:
     def __init__(self,found):
@@ -30,9 +33,12 @@ class ProcessFound:
 
     def showInfo(self):
         for f in self.found:
-            print("%s 预测今日涨跌幅 %s, 过去三个月涨跌幅 %s" % f)
-            if(float(f[1]) < -1 and float(f[2]) >=10):
-                self.buyIn.append(f[0])
+            if f == "err":
+                continue
+            else:
+                print("%s 预测今日涨跌幅 %s, 过去三个月涨跌幅 %s" % f)
+                if(float(f[1]) < -1 and float(f[2]) >=10):
+                    self.buyIn.append(f[0])
         return len(self.buyIn)
 
     def mailFound(self):

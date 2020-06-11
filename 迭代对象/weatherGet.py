@@ -35,7 +35,7 @@ def show(w):
         print(x)
 
 if __name__ == "__main__":
-    weather = WeatherIterable(['成都','上海','天津'])
+    weather = WeatherIterable(['成都'])
     show(weather)
 
 

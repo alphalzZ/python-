@@ -3,25 +3,32 @@
 
 from collections.abc import Iterable
 import requests
+from random import sample
 import os
+import re
 
 
 class FoundIterable(Iterable):
-    def __init__(self, founds):
-        self.founds=founds
+    def __init__(self, url):
+        self.founds = sample(self.fund_find(url),100)
 
     def __iter__(self):
         for found in self.founds:
-            yield self.get_found(found)
+            yield self.get_found(found[5:])
 
     def get_found(self,found):
          try:
-            url = "https://api.doctorxiong.club/v1/fund?code=%s" % int(found)
+            url = "https://api.doctorxiong.club/v1/fund?code=%s" % found
             r = requests.get(url)
             data = r.json()['data'][0]
             return data['name'], data['expectGrowth'], data['lastThreeMonthsGrowth']
          except:
             return "err"
+
+    def fund_find(self,url):
+        r = requests.get(url).text
+        funds = re.findall('.com/\d{6}',r)
+        return set(funds)
 
 class ProcessFound:
     def __init__(self,found):
@@ -37,7 +44,7 @@ class ProcessFound:
                 continue
             else:
                 print("%s 预测今日涨跌幅 %s, 过去三个月涨跌幅 %s" % f)
-                if(float(f[1]) < -1 and float(f[2]) >=10):
+                if(float(f[1]) < -3 and float(f[2]) >= 30):
                     self.buyIn.append(f[0])
         return len(self.buyIn)
 
@@ -53,8 +60,8 @@ class ProcessFound:
 
 
 if __name__ == "__main__":
-    found = FoundIterable(['160222','160219','008282',\
-        '160213','001630','001549','001595','519732','161725'])
+    url = u'http://fund.eastmoney.com/allfund.html'
+    found = FoundIterable(url)
     pf = ProcessFound(found)
     l = pf.showInfo()
     if l > 0:

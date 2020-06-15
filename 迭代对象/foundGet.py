@@ -28,8 +28,8 @@ class ProcessFound:
         self.found = found
         self.buyIn = []
         self.SENDMAIL = "/usr/sbin/sendmail"
-        self.sender = "lyj1135154563@163.com"
-        self.receviers = "272252973@qq.com"
+        self.sender = "272252973@qq.com"
+        self.receviers = "lyj1135154563@163.com"
 
     def showInfo(self):
         for f in self.found:

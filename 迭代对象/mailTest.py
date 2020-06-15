@@ -2,8 +2,8 @@
 # -*- coding: UTF-8 -*-
 import os
 SENDMAIL = "/usr/sbin/sendmail"
-sender = "lyj1135154563@163.com"
-receviers = "272252973@qq.com"
+sender = "272252973@qq.com"
+receviers = "lyj1135154563@163.com"
 subject = "Test"
 text = "这是一个测试邮件"
 message = "From:%s\nTo:%s\nSubject:%s\n%s"%(sender,receviers,subject,text)
